@@ -1,0 +1,57 @@
+create database ProjetoFormula1;
+
+/* Acessar a base desejada */
+
+use ProjetoFormula1;
+
+/* Excluir a base de dados  muita atenção para delete  comando drop apaga a base tudo dela */
+
+drop database ProjetoFormula1;
+
+/* Criação primeira  tabela  - Raking */
+
+create table if not exists Raking(codigo int(3) not null  primary key ,
+								  gp int (2) not null,
+                                  classificaçao1 int (2) not null,
+								  classificaçao2 int (2),
+								  classificaçao3 int (2),
+                                  podio1 int (2) not null,
+                                  numpoleposition int (2),
+                                  voltamaisrapida int(2));
+                                  
+/* Criação da tabela Pilotos*/
+create table if not exists Pilotos(numero int(2) not null primary key,
+						          codigo_ranking int (3),
+                                  nome char (15) not null,
+                                  pais char(30),
+                                  endereco char(30),
+                                  idade int (3),
+                                  equipe int (10)not null,
+                                  motor char (20));
+                                  
+/* Criação da chave estrangeira da tabela Pilotos */
+alter table Pilotos
+add foreign key(codigo_ranking)
+references raking(codigo);
+
+/* Adição do campo pontos */
+
+alter table Pilotos
+add pontos int (10);
+
+/*  mudar de int para char para trocar um campo */ 
+
+alter table Pilotos
+change equipe equipe char(30)not null;
+
+alter table Pilotos
+change equipe grupo char(25)not null;
+
+/* Excluir de um campo */
+
+alter table Pilotos
+drop endereco;
+
+/* selecionar todos os conteudos das duas tabelas */
+select* from Pilotos ;
+select * from Raking;
